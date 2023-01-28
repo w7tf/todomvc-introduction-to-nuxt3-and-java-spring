@@ -1,8 +1,19 @@
 package com.yourasset.todomvc.todo;
+
 import java.time.LocalDate;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Todo {
 
+    @Id
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "UUID")
     private String id;
     private String title;
     private boolean isCompleted;
