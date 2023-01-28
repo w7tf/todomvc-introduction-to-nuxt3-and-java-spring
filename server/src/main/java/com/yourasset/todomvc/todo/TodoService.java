@@ -1,5 +1,6 @@
 package com.yourasset.todomvc.todo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,21 @@ public class TodoService {
         if (id != null) {
             todoRepository.deleteById(id);
         }
+    }
+
+    public void updateTodoById(String id, Todo todo) throws TodoNotFoundException {
+
+        Todo existingTodo = todoRepository.findById(id).get();
+
+        if (id == null) {
+            throw new TodoNotFoundException("Todo with id " + id + " does not exist");
+        }
+
+        existingTodo.setTitle(todo.getTitle());
+        existingTodo.setCompleted(todo.isCompleted());
+        existingTodo.setUpdatedAt(LocalDateTime.now());
+        todoRepository.save(existingTodo);
+
     }
 
 }
