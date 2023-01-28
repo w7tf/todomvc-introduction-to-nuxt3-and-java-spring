@@ -39,7 +39,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodoById(@PathVariable("id") String id) {
+    public void deleteTodoById(@PathVariable("id") String id) throws TodoNotFoundException {
         todoService.deleteTodoById(id);
     }
 
