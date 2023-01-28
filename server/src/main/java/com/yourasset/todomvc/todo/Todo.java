@@ -1,6 +1,7 @@
 package com.yourasset.todomvc.todo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +18,8 @@ public class Todo {
     private String id;
     private String title;
     private boolean isCompleted;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Todo() {
     }
@@ -30,7 +31,7 @@ public class Todo {
      * @param createdAt
      * @param updatedAt
      */
-    public Todo(String id, String title, boolean isCompleted, LocalDate createdAt, LocalDate updatedAt) {
+    public Todo(String id, String title, boolean isCompleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.isCompleted = isCompleted;
@@ -94,28 +95,21 @@ public class Todo {
     /**
      * @return the createdAt
      */
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * @param createdAt the createdAt to set
-     */
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
      * @return the updatedAt
      */
-    public LocalDate getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * @param updatedAt the updatedAt to set
      */
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
