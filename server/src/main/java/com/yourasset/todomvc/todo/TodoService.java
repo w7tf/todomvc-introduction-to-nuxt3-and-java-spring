@@ -31,4 +31,17 @@ public class TodoService {
         todoRepository.deleteAllInBatch(getAllCompletedTodos());
     }
 
+    public void deleteTodoById(String id) throws TodoNotFoundException {
+
+        boolean todoExists = todoRepository.existsById(id);
+
+        if (!todoExists) {
+            throw new TodoNotFoundException("Todo with id " + id + " does not exist");
+        }
+
+        if (id != null) {
+            todoRepository.deleteById(id);
+        }
+    }
+
 }
