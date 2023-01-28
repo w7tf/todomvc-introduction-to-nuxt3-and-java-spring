@@ -21,33 +21,15 @@ public class Todo {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Todo() {
-    }
-
-    /**
-     * @param id
-     * @param title
-     * @param isCompleted
-     * @param createdAt
-     * @param updatedAt
-     */
-    public Todo(String id, String title, boolean isCompleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.title = title;
-        this.isCompleted = isCompleted;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
     /**
      * @param title
      * @param isCompleted
-     * @param createdAt
-     * @param updatedAt
      */
     public Todo(String title, boolean isCompleted) {
         this.title = title;
         this.isCompleted = isCompleted;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     /**
