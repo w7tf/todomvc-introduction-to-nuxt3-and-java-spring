@@ -28,14 +28,15 @@ public class TodoController {
         return todoService.getAllTodos();
     }
 
+    @PostMapping
+    public void createTodo(@RequestBody Todo todo) {
+        todoService.createTodo(todo);
+    }
+
+
     @PostMapping("/{id}")
     public void updateTodoById(@PathVariable("id") String id, @RequestBody Todo todo) throws TodoNotFoundException {
         todoService.updateTodoById(id, todo);
-    }
-
-    @PostMapping("/")
-    public void createTodo(@RequestBody Todo todo) {
-        todoService.createTodo(todo);
     }
 
     @DeleteMapping
