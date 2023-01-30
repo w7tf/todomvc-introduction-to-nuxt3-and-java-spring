@@ -1,6 +1,5 @@
 package com.yourasset.todomvc.todo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +19,11 @@ public class Todo {
     private boolean isCompleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Todo() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
     /**
      * @param title
