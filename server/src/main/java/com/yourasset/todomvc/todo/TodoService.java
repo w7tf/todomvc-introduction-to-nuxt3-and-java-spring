@@ -2,7 +2,6 @@ package com.yourasset.todomvc.todo;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,17 +18,14 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public List<Todo> getAllCompletedTodos() {
-        Optional<Todo> completedTodos = todoRepository.findCompleted(true);
-        return completedTodos.isPresent() ? List.of(completedTodos.get()) : List.of();
-    }
-
     public void createTodo(Todo todo) {
         todoRepository.save(todo);
     }
 
     public void deleteCompletedTodos() {
-        todoRepository.deleteAllInBatch(getAllCompletedTodos());
+        todoRepository.findAll().stream().filter(Todo::isCompleted).forEach(todo -> {
+            todoRepository.deleteById(todo.getId());
+        });
     }
 
     public void deleteTodoById(String id) throws TodoNotFoundException {
