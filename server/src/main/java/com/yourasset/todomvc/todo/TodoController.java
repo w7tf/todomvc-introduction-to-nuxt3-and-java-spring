@@ -30,6 +30,11 @@ public class TodoController {
         return todoService.getAllTodos();
     }
 
+    @PostMapping("/toggle-all")
+    public void toggleAllTodos(@RequestBody Todo todo) {
+        todoService.toggleAllTodos(todo);
+    }
+
     @PostMapping
     public void createTodo(@RequestBody Todo todo) {
         todoService.createTodo(todo);

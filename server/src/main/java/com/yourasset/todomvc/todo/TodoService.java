@@ -59,4 +59,21 @@ public class TodoService {
 
     }
 
+    public void toggleAllTodos(Todo todo) {
+        List<Todo> allTodos = getAllTodos();
+
+        if (allTodos.stream().allMatch(Todo::isCompleted)) {
+            allTodos.forEach(t -> {
+                t.setCompleted(false);
+                t.setUpdatedAt(LocalDateTime.now());
+            });
+        } else {
+            allTodos.forEach(t -> {
+                t.setCompleted(true);
+                t.setUpdatedAt(LocalDateTime.now());
+            });
+        }
+        todoRepository.saveAll(allTodos);
+    }
+
 }
