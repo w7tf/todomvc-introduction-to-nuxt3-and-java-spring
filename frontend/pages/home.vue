@@ -59,6 +59,6 @@ const itemsLeft = computed(() => {
 
 <style>
 body {
-    @apply bg-gray-200
+    @apply bg-gray-200 px-4 py-2 lg:p-0
 }
 </style>
