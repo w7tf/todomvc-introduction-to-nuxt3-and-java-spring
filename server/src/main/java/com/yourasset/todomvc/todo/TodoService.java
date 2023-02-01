@@ -49,6 +49,10 @@ public class TodoService {
             throw new TodoNotFoundException("Todo with id " + id + " does not exist");
         }
 
+        if (todo.getTitle() != null && !todo.getTitle().isEmpty() && todo.getTitle() != existingTodo.getTitle()) {
+            existingTodo.setTitle(todo.getTitle());
+        }
+
         existingTodo.setCompleted(todo.isCompleted());
         existingTodo.setUpdatedAt(LocalDateTime.now());
         todoRepository.save(existingTodo);

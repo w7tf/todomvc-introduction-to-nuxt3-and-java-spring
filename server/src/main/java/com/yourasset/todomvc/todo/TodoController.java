@@ -45,6 +45,7 @@ public class TodoController {
         todoService.updateTodoById(id, todo);
     }
 
+
     @DeleteMapping
     public void deleteCompletedTodos() {
         todoService.deleteCompletedTodos();
