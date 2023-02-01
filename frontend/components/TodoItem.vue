@@ -2,8 +2,11 @@
 
 const props = defineProps<{ title: string, isCompleted: boolean, id: string, refresh: () => void }>()
 const isHovered = ref(false)
+const isSetToEdit = ref(false)
+const title = ref(props.title)
 
 async function toggleCompleted() {
+    isSetToEdit.value = false
     try {
         await $fetch(`http://localhost:8080/api/v1/todos/${props.id}`, {
             headers: {
@@ -34,6 +37,28 @@ async function deleteTodo() {
     props.refresh()
 }
 
+async function updateTodoTitle() {
+    try {
+        await $fetch(`http://localhost:8080/api/v1/todos/${props.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "title": title.value
+            }),
+        })
+    } catch (e) {
+        console.log('Error:' + e)
+    }
+    isSetToEdit.value = false
+    props.refresh()
+}
+
+function handleDoubleClick() {
+    isSetToEdit.value = true
+}
+
 </script>
 
 
@@ -46,9 +71,15 @@ async function deleteTodo() {
                 <Circle class="cursor-pointer" v-if="!props.isCompleted" />
                 <CircleChecked class="cursor-pointer" v-if="props.isCompleted" />
             </button>
-            <label :for="props.id" :class="props.isCompleted ? 'line-through text-gray-300' : ''">
-                {{ props.title }}
-            </label>
+            <button v-show="!isSetToEdit" v-on:dblclick="handleDoubleClick" class="cursor-text">
+                <span :class="props.isCompleted ? 'line-through text-gray-300' : ''">
+                    {{ props.title }}
+                </span>
+            </button>
+            <form @submit.prevent="updateTodoTitle" >
+                <input v-show="isSetToEdit" v-model="title"
+                    class="focus:outline-none text-xl placeholder:text-gray-200 placeholder:italic placeholder:font-normal w-full min-w-full" />
+            </form>
         </div>
         <button v-show="isHovered" class="ml-auto mr-2" @click="deleteTodo()">
             <X class="text-red-300 cursor-pointer " />
