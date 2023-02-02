@@ -76,4 +76,16 @@ public class TodoService {
         todoRepository.saveAll(allTodos);
     }
 
+    public List<Todo> getAllCompletedTodos() {
+        List<Todo> allTodos = getAllTodos();
+        allTodos.removeIf(todo -> !todo.isCompleted());
+        return allTodos;
+    }
+
+    public List<Todo> getAllIncompletedTodos() {
+        List<Todo> allTodos = getAllTodos();
+        allTodos.removeIf(todo -> todo.isCompleted());
+        return allTodos;
+    }
+
 }

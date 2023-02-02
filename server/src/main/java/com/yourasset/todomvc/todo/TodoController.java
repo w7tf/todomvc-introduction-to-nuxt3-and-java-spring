@@ -30,6 +30,16 @@ public class TodoController {
         return todoService.getAllTodos();
     }
 
+    @GetMapping("/completed")
+    public List<Todo> getAllCompletedTodos() {
+        return todoService.getAllCompletedTodos();
+    }
+
+    @GetMapping("/active")
+    public List<Todo> getAllIncompletedTodos() {
+        return todoService.getAllIncompletedTodos();
+    }
+
     @PostMapping("/toggle-all")
     public void toggleAllTodos(@RequestBody Todo todo) {
         todoService.toggleAllTodos(todo);
