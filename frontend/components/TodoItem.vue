@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = defineProps<{ title: string, isCompleted: boolean, id: string, refresh: () => void }>()
+const props = defineProps<{ title: string, isCompleted: boolean, id: string }>()
 const isHovered = ref(false)
 const isSetToEdit = ref(false)
 const title = ref(props.title)
@@ -20,7 +20,7 @@ async function toggleCompleted() {
     } catch (e) {
         console.log('Error:' + e)
     }
-    props.refresh()
+    refreshNuxtData()
 }
 
 async function deleteTodo() {
@@ -34,7 +34,7 @@ async function deleteTodo() {
     } catch (e) {
         console.log('Error:' + e)
     }
-    props.refresh()
+    refreshNuxtData()
 }
 
 async function updateTodoTitle() {
@@ -52,7 +52,7 @@ async function updateTodoTitle() {
         console.log('Error:' + e)
     }
     isSetToEdit.value = false
-    props.refresh()
+    refreshNuxtData()
 }
 
 function handleDoubleClick() {
@@ -76,7 +76,7 @@ function handleDoubleClick() {
                     {{ props.title }}
                 </span>
             </button>
-            <form @submit.prevent="updateTodoTitle" >
+            <form @submit.prevent="updateTodoTitle">
                 <input v-show="isSetToEdit" v-model="title"
                     class="focus:outline-none text-xl placeholder:text-gray-200 placeholder:italic placeholder:font-normal w-full min-w-full" />
             </form>
