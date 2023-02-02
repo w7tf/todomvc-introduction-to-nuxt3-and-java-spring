@@ -1,10 +1,21 @@
 <script setup lang="ts">
-
-const props = defineProps<{ setAllCompleted: () => void, refresh: () => void, showToggle: boolean }>()
 const input = ref<HTMLInputElement | null>(null)
-const setInvisible = computed(() => {
-    return !props.showToggle && 'invisible'
-})
+
+async function setAllCompleted() {
+    try {
+        await $fetch(`http://localhost:8080/api/v1/todos/toggle-all`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+            }),
+        })
+    } catch (e) {
+        console.log('Error:' + e)
+    }
+    refreshNuxtData()
+}
 
 
 async function addTodo() {
@@ -25,7 +36,7 @@ async function addTodo() {
         }
         input.value.value = ''
     }
-    props.refresh()
+    refreshNuxtData()
 }
 </script>
 
@@ -33,7 +44,7 @@ async function addTodo() {
 
     <div class="flex border-gray-200  py-4 px-2 w-full min-w-full">
         <div class="flex align-middle space-x-2 w-full min-w-full">
-            <button @click="setAllCompleted" class="mt-1 cursor-pointer" :class="setInvisible">
+            <button @click="setAllCompleted" class="mt-1 cursor-pointer" >
                 <ChevronDown class="text-gray-200 font-bold" />
             </button>
             <form @submit.prevent="addTodo()" class="w-full">
