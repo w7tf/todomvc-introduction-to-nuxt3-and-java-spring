@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ChevronDown from './ChevronDown.vue';
+
 const input = ref<HTMLInputElement | null>(null)
 
 async function setAllCompleted() {
@@ -14,7 +16,7 @@ async function setAllCompleted() {
     } catch (e) {
         console.log('Error:' + e)
     }
-    refreshNuxtData()
+    await refreshNuxtData()
 }
 
 
@@ -36,8 +38,10 @@ async function addTodo() {
         }
         input.value.value = ''
     }
-    refreshNuxtData()
+    await refreshNuxtData()
 }
+
+
 </script>
 
 <template>

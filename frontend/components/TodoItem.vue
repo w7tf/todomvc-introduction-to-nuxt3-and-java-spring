@@ -20,7 +20,7 @@ async function toggleCompleted() {
     } catch (e) {
         console.log('Error:' + e)
     }
-    refreshNuxtData()
+    await refreshNuxtData()
 }
 
 async function deleteTodo() {
@@ -34,7 +34,7 @@ async function deleteTodo() {
     } catch (e) {
         console.log('Error:' + e)
     }
-    refreshNuxtData()
+    await refreshNuxtData()
 }
 
 async function updateTodoTitle() {
@@ -52,7 +52,7 @@ async function updateTodoTitle() {
         console.log('Error:' + e)
     }
     isSetToEdit.value = false
-    refreshNuxtData()
+    await refreshNuxtData()
 }
 
 function handleDoubleClick() {
