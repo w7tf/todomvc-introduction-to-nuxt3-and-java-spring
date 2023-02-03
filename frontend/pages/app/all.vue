@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 
-const { data: todos } = await useFetch('http://localhost:8080/api/v1/todos')
+const { data: todos } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos')
 
 </script>
 
