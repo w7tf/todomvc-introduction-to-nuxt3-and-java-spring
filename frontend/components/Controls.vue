@@ -1,16 +1,22 @@
-<script setup>
-const { data: allItems } = await useFetch('http://localhost:8080/api/v1/todos')
-const todosLeft = ref(allItems.value.length)
+<script setup lang="ts">
+const { data: allItems } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos')
+const todosLeft = ref(allItems?.value?.filter(todo => !todo?.completed).length)
+const showCompletedAction = ref(false)
 const hideControls = ref(false)
 
+
+
 watch(allItems, () => {
-        todosLeft.value = allItems.value.filter(todo => !todo.completed).length
-        if (allItems.value.length === 0) {
-                hideControls.value = true
-        } else {
-                hideControls.value = false
-        }
+        const remainingTodos = allItems?.value?.filter(todo => !todo?.completed).length
+        const completedTodos = allItems?.value?.filter(todo => todo?.completed).length
+        todosLeft.value = Number(remainingTodos)
+        const controlsControlsVisibility = allItems?.value?.length === 0
+        const controlsShowCompletedActionVisibility = completedTodos && completedTodos > 0
+        hideControls.value = controlsControlsVisibility
+        showCompletedAction.value = controlsShowCompletedActionVisibility ? true : false
+
 })
+
 
 async function clearCompleted() {
         try {
@@ -23,9 +29,8 @@ async function clearCompleted() {
         } catch (e) {
                 console.log('Error:' + e)
         }
-        refreshNuxtData()
+        await refreshNuxtData()
 }
-
 </script>
 
 <template>
@@ -43,7 +48,7 @@ async function clearCompleted() {
                                 to="completed">Completed</NuxtLink>
                 </div>
                 <div class="pr-2 text-right">
-                        <button @click="clearCompleted">Clear completed</button>
+                        <button @click="clearCompleted" v-show="showCompletedAction">Clear completed</button>
                 </div>
 
         </footer>
