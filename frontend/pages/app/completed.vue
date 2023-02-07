@@ -1,6 +1,13 @@
 <script setup lang="ts">
 
-const { data: todos } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos/completed')
+const { data: todos, error } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos/completed')
+
+
+if (error.value) {
+    navigateTo('/error')
+}
+
+
 
 
 </script>
@@ -8,8 +15,9 @@ const { data: todos } = await useFetch<Todo[]>('http://localhost:8080/api/v1/tod
 
 <template>
 
+
     <TodoItemsWrapper v-for="todo in todos" :key="todo.id">
-        <TodoItem :id="todo.id" :title="todo.title" :isCompleted="todo.completed"  />
+        <TodoItem :id="todo.id" :title="todo.title" :isCompleted="todo.completed" />
     </TodoItemsWrapper>
-    
+
 </template>
