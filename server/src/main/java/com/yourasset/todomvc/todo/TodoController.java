@@ -42,7 +42,7 @@ public class TodoController {
 
     @PostMapping("/toggle-all")
     public void toggleAllTodos(@RequestBody Todo todo) {
-        todoService.toggleAllTodos(todo);
+        todoService.toggleAllTodos();
     }
 
     @PostMapping
