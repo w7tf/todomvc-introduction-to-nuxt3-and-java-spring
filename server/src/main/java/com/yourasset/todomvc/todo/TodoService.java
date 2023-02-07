@@ -25,9 +25,8 @@ public class TodoService {
     public void deleteCompletedTodos() {
 
         List<Todo> completedTodos = todoRepository.findCompletedTodos();
-        completedTodos.forEach(todo -> {
-            todoRepository.deleteById(todo.getId());
-        });
+
+        todoRepository.deleteAll(completedTodos);
     }
 
     public void deleteTodoById(String id) throws TodoNotFoundException {
@@ -47,7 +46,7 @@ public class TodoService {
 
         Todo existingTodo = todoRepository.findById(id).get();
 
-        if (id == null) {
+        if (id == null || !todoRepository.existsById(id)) {
             throw new TodoNotFoundException("Todo with id " + id + " does not exist");
         }
 
@@ -61,7 +60,7 @@ public class TodoService {
 
     }
 
-    public void toggleAllTodos(Todo todo) {
+    public void toggleAllTodos() {
         List<Todo> allTodos = getAllTodos();
 
         if (allTodos.stream().allMatch(Todo::isCompleted)) {
