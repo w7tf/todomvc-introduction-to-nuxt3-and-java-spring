@@ -6,6 +6,7 @@ if (route.path === '/app') {
     navigateTo('/app/all')
 }
 
+
 </script>
 
 <template>
@@ -20,9 +21,11 @@ if (route.path === '/app') {
             <div class="shadow-lg w-full mx-auto">
                 <TodoInput />
 
-                <NuxtPage></NuxtPage>
+               
+                    <NuxtPage :transition="false"></NuxtPage>
+                
 
-                <Controls />
+                <TodoControls />
             </div>
         </div>
     </section>
