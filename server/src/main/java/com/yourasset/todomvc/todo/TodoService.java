@@ -18,7 +18,10 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public void createTodo(Todo todo) {
+    public void createTodo(Todo todo) throws BadRequestException {
+        if (todo.getTitle() == null || todo.getTitle().isEmpty()) {
+            throw new BadRequestException("Todo title cannot be empty");
+        }
         todoRepository.save(todo);
     }
 
@@ -29,7 +32,11 @@ public class TodoService {
         todoRepository.deleteAll(completedTodos);
     }
 
-    public void deleteTodoById(String id) throws TodoNotFoundException {
+    public void deleteTodoById(String id) throws TodoNotFoundException, BadRequestException {
+
+        if (id == null || id.isEmpty()) {
+            throw new BadRequestException("Todo id cannot be empty");
+        }
 
         boolean todoExists = todoRepository.existsById(id);
 
@@ -42,11 +49,15 @@ public class TodoService {
         }
     }
 
-    public void updateTodoById(String id, Todo todo) throws TodoNotFoundException {
+    public void updateTodoById(String id, Todo todo) throws TodoNotFoundException, BadRequestException {
+
+        if (id == null || id.isEmpty()) {
+            throw new BadRequestException("Todo id cannot be empty");
+        }
 
         Todo existingTodo = todoRepository.findById(id).get();
 
-        if (id == null || !todoRepository.existsById(id)) {
+        if (!todoRepository.existsById(id)) {
             throw new TodoNotFoundException("Todo with id " + id + " does not exist");
         }
 
