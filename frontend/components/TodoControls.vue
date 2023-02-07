@@ -4,12 +4,9 @@ const todosLeft = ref(allItems?.value?.filter(todo => !todo?.completed).length)
 const showCompletedAction = ref(true)
 const hideControls = ref(true)
 
-onMounted(
-        async () => {
-                await refresh()
-        }
-)
-
+onNuxtReady(() => {
+        refresh()
+})
 
 watch([allItems], () => {
         const remainingTodos = allItems?.value?.filter(todo => !todo?.completed).length
