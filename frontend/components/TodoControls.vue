@@ -1,12 +1,17 @@
 <script lang="ts" setup>
-const { data: allItems } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos')
+const { data: allItems, refresh } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos')
 const todosLeft = ref(allItems?.value?.filter(todo => !todo?.completed).length)
 const showCompletedAction = ref(true)
 const hideControls = ref(true)
 
+onMounted(
+        async () => {
+                await refresh()
+        }
+)
 
 
-watch(allItems, () => {
+watch([allItems], () => {
         const remainingTodos = allItems?.value?.filter(todo => !todo?.completed).length
         const completedTodos = allItems?.value?.filter(todo => todo?.completed).length
         todosLeft.value = Number(remainingTodos)
@@ -34,22 +39,21 @@ async function clearCompleted() {
 
 <template>
         <section data-testid="controls" :class="hideControls ? 'hidden' : 'grid grid-cols-3'"
-                        class="items-center p-2 text-gray-400 border-t-[1px] footer">
-                        <div class="pl-2">
-                                <span>{{ todosLeft }} items left</span>
-                        </div>
-                        <div class="flex justify-between items-center mx-auto space-x-2">
-                                <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80"
-                                        to="all">
-                                        All</NuxtLink>
-                                <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80"
-                                        to="active">Active</NuxtLink>
-                                <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80"
-                                        to="completed">Completed</NuxtLink>
-                        </div>
-                        <div class="pr-2 text-right">
-                                <button @click="clearCompleted" v-show="showCompletedAction">Clear completed</button>
-                        </div>
+                class="items-center p-2 text-gray-400 border-t-[1px] footer">
+                <div class="pl-2">
+                        <span>{{ todosLeft }} items left</span>
+                </div>
+                <div class="flex justify-between items-center mx-auto space-x-2">
+                        <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80" to="all">
+                                All</NuxtLink>
+                        <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80"
+                                to="active">Active</NuxtLink>
+                        <NuxtLink class="py-1 px-2" active-class="border-red-300 border rounded-sm opacity-80"
+                                to="completed">Completed</NuxtLink>
+                </div>
+                <div class="pr-2 text-right">
+                        <button @click="clearCompleted" v-show="showCompletedAction">Clear completed</button>
+                </div>
 
         </section>
 
