@@ -115,6 +115,7 @@ public class TodoServiceTest {
         }
 
     }
+
     @Test
     void testToggleAllTodosToBeIncomplete() {
 
@@ -145,11 +146,24 @@ public class TodoServiceTest {
     }
 
     @Test
-    void testUpdateTodoByIdNotFoundException() throws TodoNotFoundException {
+    void testUpdateTodoExceptionBadRequest() throws BadRequestException {
 
-        assertThrows(TodoNotFoundException.class, () -> underTest.deleteTodoById("1"));
+        String id = "";
+        Todo todo = new Todo();
+        todo.setId(id);
 
+        assertThrows(BadRequestException.class, () -> underTest.updateTodoById(id, todo));
     }
 
+    @Test
+    void testDeleteTodoByIdNoIdProvided() throws BadRequestException {
+        assertThrows(BadRequestException.class, () -> underTest.deleteTodoById(""));
+    }
+
+    @Test
+    void testNoInputProvided() throws BadRequestException {
+        Todo todo = new Todo("", false);
+        assertThrows(BadRequestException.class, () -> underTest.createTodo(todo));
+    }
 
 }
