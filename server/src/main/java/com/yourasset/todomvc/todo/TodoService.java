@@ -23,7 +23,9 @@ public class TodoService {
     }
 
     public void deleteCompletedTodos() {
-        todoRepository.findAll().stream().filter(Todo::isCompleted).forEach(todo -> {
+
+        List<Todo> completedTodos = todoRepository.findCompletedTodos();
+        completedTodos.forEach(todo -> {
             todoRepository.deleteById(todo.getId());
         });
     }
@@ -77,15 +79,13 @@ public class TodoService {
     }
 
     public List<Todo> getAllCompletedTodos() {
-        List<Todo> allTodos = getAllTodos();
-        allTodos.removeIf(todo -> !todo.isCompleted());
-        return allTodos;
+        List<Todo> completedTodos = todoRepository.findCompletedTodos();
+        return completedTodos;
     }
 
     public List<Todo> getAllIncompletedTodos() {
-        List<Todo> allTodos = getAllTodos();
-        allTodos.removeIf(todo -> todo.isCompleted());
-        return allTodos;
+        List<Todo> incompletedTodos = todoRepository.findActiveTodos();
+        return incompletedTodos;
     }
 
 }
