@@ -21,33 +21,25 @@ public class TodoRepositoryTest {
     }
 
     @Test
-    void checkIfAddedTodosCanBeFound() {
-        Todo todo = new Todo("test", true);
-        todoRepository.save(todo);
-        todoRepository.findAll().forEach(item -> assertEquals("test", todo.getTitle()));
+    void shouldFindCompletedTodos() {
+        Todo todo1 = new Todo("1", true);
+        todoRepository.save(todo1);
+
+        Todo todo2 = new Todo("2", false);
+        todoRepository.save(todo2);
+
+        assertEquals(1, todoRepository.findCompletedTodos().size());
     }
 
     @Test
-    void checkIfAddedTodosCanBeFoundById() {
-        Todo todo = new Todo();
-        todo.setTitle("test");
-        todo.setCompleted(true);
-        todoRepository.save(todo);
-        todoRepository.findById(todo.getId()).ifPresent(item -> assertEquals("test", item.getTitle()));
-    }
+    void shouldFindActiveTodos() {
+        Todo todo1 = new Todo("1", true);
+        todoRepository.save(todo1);
 
-    @Test
-    void checkIfAddedTodosHaveCreatedAt() {
-        Todo todo = new Todo();
-        todoRepository.save(todo);
-        todoRepository.findById(todo.getId()).ifPresent(item -> assertEquals(todo.getCreatedAt(), item.getCreatedAt()));
-    }
+        Todo todo2 = new Todo("2", false);
+        todoRepository.save(todo2);
 
-    @Test
-    void checkIfAddedTodoHasUpdatedAt() {
-        Todo todo = new Todo();
-        todoRepository.save(todo);
-        todoRepository.findById(todo.getId()).ifPresent(item -> assertEquals(todo.getUpdatedAt(), item.getUpdatedAt()));
+        assertEquals(1, todoRepository.findActiveTodos().size());
     }
 
 }
