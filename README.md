@@ -72,7 +72,7 @@ The frontend is divided into pages that list desired todos (all, active, complet
 
 ## Backend
 
-The backend has been thoroughly tested using two types of unit tests. The `TodoRepositoryTest` verifies the custom SQL queries using a test database powered by "H2". Meanwhile, the `TodoServiceTest` focuses on testing the service class by mocking the repository operations.
+The backend has been tested using unit tests. The `TodoRepositoryTest` verifies the custom SQL queries using a test database powered by "H2". Meanwhile, the `TodoServiceTest` focuses on testing the service class by mocking the repository operations. `TodoControllerTest` makes sure that all API routes indeed exist.
 
 ## Frontend
 
