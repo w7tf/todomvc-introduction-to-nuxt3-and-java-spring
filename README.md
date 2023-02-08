@@ -90,4 +90,12 @@ In order to ensure the proper functioning of all components and pages, conductin
   src="documentation/assets/todo.png"
   alt="Screenshot of application"    
   style="display: inline-block; margin: 0 auto; max-width: 400px">
+<img
+  src="documentation/assets/todo2.png"
+  alt="Screenshot of application"    
+  style="display: inline-block; margin: 0 auto; max-width: 400px">
+<img
+  src="documentation/assets/todo3.png"
+  alt="Screenshot of application"    
+  style="display: inline-block; margin: 0 auto; max-width: 400px">
 
