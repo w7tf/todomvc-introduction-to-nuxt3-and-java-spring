@@ -13,7 +13,7 @@ async function toggleCompleted() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
                 "completed": !props.isCompleted
             }),
@@ -44,7 +44,7 @@ async function updateTodoTitle() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
                 "title": title.value
             }),
