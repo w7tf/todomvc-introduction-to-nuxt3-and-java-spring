@@ -1,14 +1,3 @@
-<script setup>
-
-const route = useRoute()
-
-if (route.path === '/app') {
-    navigateTo('/app/all')
-}
-
-
-</script>
-
 <template>
 
     <section class="flex justify-center">
