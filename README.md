@@ -83,3 +83,11 @@ The frontend is being tested using vitest, a library that is compatible with Jes
 One possible solution may be to investigate if there are any workarounds or fixes for the current issues with the `TodoControls` component unit tests, or to see if a different testing approach can be taken to ensure that all components and pages work well together.
 
 In order to ensure the proper functioning of all components and pages, conducting integration tests or End-to-End (E2E) tests would be a worthwhile next step. Unfortunately, the popular testing framework Cypress is not yet supported by Nuxt version 3. Thus, it might be beneficial to explore alternative testing libraries that offer similar functionality.
+
+# Showcase 
+
+<img
+  src="documentation/assets/todo.png"
+  alt="Screenshot of application"    
+  style="display: inline-block; margin: 0 auto; max-width: 400px">
+
