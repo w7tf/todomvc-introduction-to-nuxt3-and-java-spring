@@ -1,29 +1,7 @@
 // @vitest-environment nuxt
-import { render, screen, fireEvent } from '@testing-library/vue'
-import { test, describe, expect, it, vi, beforeEach } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/vue'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import TodoItem from '~~/components/TodoItem.vue'
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-// import "whatwg-fetch";
-
-
-// export const restHandlers = [
-//     rest.delete('http://localhost:8080/api/v1/todos/sampleID', (req, res, ctx) => {
-//         return res(ctx.status(200))
-//     })
-// ]
-
-// export const server = setupServer(...restHandlers)
-
-// // Start server before all tests
-// beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-
-// //  Close server after all tests
-// afterAll(() => server.close());
-
-// // Reset handlers after each test `important for test isolation`
-// afterEach(() => server.resetHandlers());
-
 
 describe('TodoItem', async () => {
 
@@ -83,7 +61,7 @@ describe('TodoItem', async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
                 "completed": !isCompleted
             }),
@@ -109,7 +87,7 @@ describe('TodoItem', async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
                 "title": 'New Todo'
             }),
