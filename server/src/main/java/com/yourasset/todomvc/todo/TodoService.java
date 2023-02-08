@@ -1,6 +1,7 @@
 package com.yourasset.todomvc.todo;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ public class TodoService {
     }
 
     public List<Todo> getAllTodos() {
-        return todoRepository.findAll();
+        List<Todo> allTodos = todoRepository.findAll();
+        allTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
+        return allTodos;
     }
 
     public void createTodo(Todo todo) throws BadRequestException {
@@ -90,11 +93,13 @@ public class TodoService {
 
     public List<Todo> getAllCompletedTodos() {
         List<Todo> completedTodos = todoRepository.findCompletedTodos();
+        completedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return completedTodos;
     }
 
     public List<Todo> getAllIncompletedTodos() {
         List<Todo> incompletedTodos = todoRepository.findActiveTodos();
+        incompletedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return incompletedTodos;
     }
 
