@@ -14,7 +14,7 @@ describe('TodoInput', async () => {
 
     
 
-    it('Call backend on completed', async () => {
+    it('Call backend on completed toggle', async () => {
         const toggleButton = await screen.findByTestId('completed-button')
         expect(toggleButton).toBeTruthy()
 
@@ -24,7 +24,7 @@ describe('TodoInput', async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify({
             }),
         })
