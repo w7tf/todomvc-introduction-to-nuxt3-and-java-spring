@@ -1,6 +1,7 @@
 package com.yourasset.todomvc.todo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class TodoService {
 
     public List<Todo> getAllTodos() {
         List<Todo> allTodos = todoRepository.findAll();
-        allTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
+        List<Todo> sortedTodos = new ArrayList<>(allTodos);
+        sortedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return allTodos;
     }
 
@@ -93,13 +95,15 @@ public class TodoService {
 
     public List<Todo> getAllCompletedTodos() {
         List<Todo> completedTodos = todoRepository.findCompletedTodos();
-        completedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
+        List<Todo> sortedTodos = new ArrayList<>(completedTodos);
+        sortedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return completedTodos;
     }
 
     public List<Todo> getAllIncompletedTodos() {
         List<Todo> incompletedTodos = todoRepository.findActiveTodos();
-        incompletedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
+        List<Todo> sortedTodos = new ArrayList<>(incompletedTodos);
+        sortedTodos.sort(Comparator.comparing(Todo::getCreatedAt).reversed());
         return incompletedTodos;
     }
 
