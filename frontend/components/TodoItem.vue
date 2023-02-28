@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useTodoStore } from '~~/store/useTodo';
 
+const store = useTodoStore()
 
 const props = defineProps<{ title: string, isCompleted: boolean, id: string }>()
 const isHovered = ref(false)
@@ -8,59 +10,21 @@ const title = ref(props.title)
 
 async function toggleCompleted() {
     isSetToEdit.value = false
-    try {
-        await fetch(`http://localhost:8080/api/v1/todos/${props.id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'PATCH',
-            body: JSON.stringify({
-                "completed": !props.isCompleted
-            }),
-        })
-    } catch (e) {
-        console.log('Error:' + e)
-    }
-    await refreshNuxtData()
+    store.toggleCompleted(props.id, props.isCompleted)
 }
 
 async function deleteTodo() {
-    try {
-        await fetch(`http://localhost:8080/api/v1/todos/${props.id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'DELETE',
-        })
-    } catch (e) {
-        console.log('Error:' + e)
-    }
-    await refreshNuxtData()
+    store.deleteTodoById(props.id)
 }
 
 async function updateTodoTitle() {
-    try {
-        await fetch(`http://localhost:8080/api/v1/todos/${props.id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'PATCH',
-            body: JSON.stringify({
-                "title": title.value
-            }),
-        })
-    } catch (e) {
-        console.log('Error:' + e)
-    }
+    store.editTodoById(props.id, title.value)
     isSetToEdit.value = false
-    await refreshNuxtData()
 }
 
 function handleDoubleClick() {
     isSetToEdit.value = true
 }
-
-
 
 </script>
 
@@ -70,7 +34,8 @@ function handleDoubleClick() {
     <div @mouseenter="isHovered = true" @mouseleave="isHovered = false"
         class="flex items-center text-xl font-medium text-gray-600 ">
         <div class="flex items-center space-x-4">
-            <button aria-label="Toggle todo status" :id="props.id" class="cursor-pointer" @click="toggleCompleted" data-test="toggle-state">
+            <button aria-label="Toggle todo status" :id="props.id" class="cursor-pointer" @click="toggleCompleted"
+                data-test="toggle-state">
                 <Circle data-testid="incompleted-icon" class="cursor-pointer" v-if="!props.isCompleted" />
                 <CircleChecked data-testid="completed-icon" class="cursor-pointer" v-if="props.isCompleted" />
             </button>

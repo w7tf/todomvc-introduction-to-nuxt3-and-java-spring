@@ -1,21 +1,17 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useTodoStore } from '~~/store/useTodo';
 
-const { data: todos, error } = await useFetch<Todo[]>('http://localhost:8080/api/v1/todos')
+const store = useTodoStore()
+const { todos } = storeToRefs(store)
 
-if (error.value) {
-    navigateTo('/error')
-}
 
 
 </script>
 
 
 <template>
-    
-
-    
     <TodoItemsWrapper v-for="todo in todos" :key="todo.id">
-        <TodoItem :id="todo.id" :title="todo.title" :isCompleted="todo.completed"  />
+        <TodoItem :id="todo.id" :title="todo.title" :isCompleted="todo.completed" />
     </TodoItemsWrapper>
-    
 </template>

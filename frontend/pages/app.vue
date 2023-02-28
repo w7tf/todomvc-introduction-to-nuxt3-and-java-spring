@@ -1,5 +1,11 @@
-<template>
+<script setup lang="ts">
+import { useTodoStore } from '~~/store/useTodo';
 
+const store = useTodoStore()
+await store.fetchTodos()
+</script>
+
+<template>
     <section class="flex justify-center">
         <h1 class="text-6xl text-red-200">
             todos
@@ -9,16 +15,12 @@
         <div class="flex flex-col justify-center mx-auto w-full">
             <div class="shadow-lg w-full mx-auto">
                 <TodoInput />
-
-               
-                    <NuxtPage :transition="false"></NuxtPage>
-                
+                <NuxtPage :transition="false"></NuxtPage>
 
                 <TodoControls />
             </div>
         </div>
     </section>
-
 </template>
 
 
