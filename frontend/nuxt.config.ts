@@ -1,9 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     test: true,
-    ssr: false,
+    ssr: true,
     modules: [
         '@nuxtjs/tailwindcss',
-        'nuxt-vitest'
+        'nuxt-vitest',
+        '@pinia/nuxt'
     ],
 })
